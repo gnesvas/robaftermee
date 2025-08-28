@@ -3,135 +3,102 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Profile – Rejauns</title>
+<title>Rejauns – Profile</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#f3f4f6;--card:#ffffff;--text:#0f172a;--muted:#64748b;--line:#e5e7eb;}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);font-family:Inter,Arial,sans-serif;color:var(--text)}
-  .navbar{background:#fff;border-bottom:1px solid var(--line);padding:8px 16px;display:flex;align-items:center;gap:14px}
-  .logo img{width:26px;height:26px}
-  .search{flex:1;position:relative}
-  .search input{width:100%;padding:8px 12px 8px 32px;border:1px solid var(--line);border-radius:6px;background:#fafafa}
-  .search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:#6b7280}
-  .nav-links{display:flex;gap:18px;margin-left:8px}
-  .nav-links a{font-weight:600;font-size:14px;color:#1f2937;text-decoration:none}
-  .spacer{flex:1}
-  .top-right{display:flex;align-items:center;gap:14px}
-
-  /* robux button */
-  .robux-btn{position:relative;display:flex;align-items:center;gap:6px;cursor:pointer}
-  .robux-btn img{width:22px;height:22px}
-  .robux-btn span{font-weight:600}
-  .robux-dropdown{position:absolute;right:0;top:36px;width:200px;background:#fff;border:1px solid var(--line);border-radius:10px;
-    box-shadow:0 6px 16px rgba(0,0,0,.1);padding:8px;display:none}
-  .robux-dropdown.open{display:block}
-  .robux-item{padding:10px;border-radius:8px;font-size:14px}
-  .robux-item:hover{background:#f5f7fb}
-
-  /* user avatar */
-  .user-chip{display:flex;align-items:center;gap:6px;cursor:pointer}
-  .user-chip .avatar{position:relative;width:28px;height:28px;border-radius:50%;overflow:hidden}
-  .user-chip .avatar img{width:100%;height:100%;object-fit:cover;border:1px solid var(--line)}
-  .online-dot{position:absolute;right:-1px;bottom:-1px;width:9px;height:9px;background:#3b82f6;border:2px solid #fff;border-radius:50%}
-  .user-chip .name{font-weight:600;font-size:14px}
-
-  /* settings */
+  body{margin:0;font-family:Inter,Arial,sans-serif;background:#fff;color:#111827}
+  a{text-decoration:none;color:inherit}
+  .navbar{display:flex;align-items:center;padding:8px 16px;border-bottom:1px solid #e5e7eb;background:#fff}
+  .navbar .left{display:flex;align-items:center;gap:12px}
+  .navbar .left img{width:26px;height:26px}
+  .navbar .search{flex:1;display:flex;align-items:center;position:relative;margin:0 16px}
+  .navbar .search input{width:100%;padding:6px 12px 6px 32px;border:1px solid #e5e7eb;border-radius:6px;background:#fafafa}
+  .navbar .search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);stroke:#6b7280;width:18px;height:18px}
+  .navbar .links{display:flex;gap:18px;font-weight:600;font-size:14px}
+  .navbar .right{display:flex;align-items:center;gap:16px}
+  .robux{display:flex;align-items:center;gap:6px;cursor:pointer}
+  .robux img{width:20px;height:20px}
+  .robux span{font-weight:600}
+  .avatar-small{width:28px;height:28px;border-radius:50%;overflow:hidden}
+  .avatar-small img{width:100%;height:100%;object-fit:cover}
   .settings svg{width:22px;height:22px;stroke:#111827;cursor:pointer}
 
-  /* profile page */
-  .wrap{max-width:960px;margin:24px auto;padding:0 16px}
-  .profile-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
-  .profile-top{display:flex;align-items:center;gap:18px}
-  .big-avatar{position:relative;width:96px;height:96px;border-radius:50%;overflow:hidden;border:1px solid var(--line)}
-  .big-avatar img{width:100%;height:100%;object-fit:cover}
-  .online-dot-big{position:absolute;right:-2px;bottom:-2px;width:12px;height:12px;background:#3b82f6;border:3px solid #fff;border-radius:50%}
-  .name-stack{flex:1}
-  .display-name{font-size:34px;font-weight:900}
-  .handle{color:var(--muted);font-weight:600;margin-top:4px}
-  .kpis{display:flex;gap:24px;margin-top:10px}
-  .kpis div{font-weight:700}
-  .kpis small{color:var(--muted);margin-left:4px}
-  .tabs{display:flex;gap:24px;margin-top:24px;border-bottom:1px solid var(--line)}
-  .tab{padding:12px 0;font-weight:800}
-  .tab.active{border-bottom:3px solid var(--text)}
-  .pane{padding-top:16px}
-  .about-box{border:1px solid var(--line);border-radius:12px;background:#fff}
-  textarea{width:100%;min-height:140px;border:none;outline:none;padding:16px;border-top:1px solid var(--line);resize:vertical;font-size:16px}
-  .hint{color:var(--muted);font-size:12px;padding:0 16px 12px}
-  .actions{display:flex;justify-content:flex-end;gap:12px;padding:12px 16px;border-top:1px solid var(--line);background:#fafafa}
-  .btn{padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#f3f4f6;font-weight:700;cursor:pointer}
+  .profile{max-width:600px;margin:24px auto;padding:0 16px;text-align:center}
+  .profile .avatar-big{width:100px;height:100px;border-radius:50%;overflow:hidden;margin:0 auto 12px;border:1px solid #e5e7eb}
+  .profile .avatar-big img{width:100%;height:100%;object-fit:cover}
+  .profile .name{font-size:28px;font-weight:900}
+  .profile .handle{color:#6b7280;font-weight:600;margin:4px 0 12px}
+  .profile .stats{display:flex;justify-content:center;gap:24px;margin-bottom:20px}
+  .profile .stats div{font-weight:700}
+  .profile .stats small{color:#6b7280;font-weight:600;margin-left:4px}
+
+  .tabs{display:flex;justify-content:center;gap:40px;border-bottom:1px solid #e5e7eb;margin-top:12px}
+  .tab{padding:12px 0;font-weight:700;color:#374151;cursor:pointer}
+  .tab.active{border-bottom:3px solid #111827;color:#111827}
+
+  .pane{text-align:left;margin-top:20px}
+  .about-box{border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+  textarea{width:100%;min-height:120px;padding:12px;border:none;outline:none;font-size:15px}
+  .hint{font-size:12px;color:#6b7280;padding:0 12px 12px}
+  .actions{display:flex;justify-content:flex-end;gap:12px;padding:12px;border-top:1px solid #e5e7eb;background:#fafafa}
+  .btn{padding:8px 14px;border-radius:6px;border:1px solid #e5e7eb;background:#f3f4f6;font-weight:700;cursor:pointer}
   .btn.primary{background:#eef2ff;border-color:#c7d2fe}
   .counter{margin-right:auto;color:#64748b;font-size:12px}
-  .report{color:#ef4444;font-weight:700;display:block;text-align:right;margin-top:12px}
+  .report{display:block;text-align:right;margin-top:14px;font-weight:700;color:#ef4444}
 </style>
 </head>
 <body>
 
+<!-- Navbar -->
 <div class="navbar">
-  <div class="logo"><img src="https://image.pngaaa.com/800/3817800-middle.png" alt="Roblox"></div>
+  <div class="left">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    <img src="https://image.pngaaa.com/800/3817800-middle.png" alt="Roblox">
+  </div>
   <div class="search">
-    <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
     <input type="text" placeholder="Search">
   </div>
-  <nav class="nav-links"><a href="#">Charts</a><a href="#">Marketplace</a><a href="#">Create</a><a href="#">Robux</a></nav>
-  <div class="spacer"></div>
-
-  <div class="top-right">
-    <!-- robux -->
-    <div class="robux-btn" id="robuxBtn">
-      <img src="https://tr.rbxcdn.com/b68e521eaf370e87022a1a36494b3bd1/250/250/Decal/Png" alt="Robux">
-      <span>5000</span>
-      <div class="robux-dropdown" id="robuxMenu">
-        <div class="robux-item">Buy Robux</div>
-        <div class="robux-item">My Transactions</div>
-        <div class="robux-item">Redeem Roblox Codes</div>
-      </div>
-    </div>
-
-    <!-- user -->
-    <div class="user-chip">
-      <div class="avatar"><img src="https://files.catbox.moe/jf2zj6.jpeg" alt="avatar"><span class="online-dot"></span></div>
-      <div class="name">Rejauns <span style="color:#6b7280">13+</span></div>
-    </div>
-
-    <!-- settings -->
-    <div class="settings">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 .6 1.65 1.65 0 0 0-.33 1.82l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 8.6 15a1.65 1.65 0 0 0-1-.6 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-.6 1.65 1.65 0 0 0 .33-1.82l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 15.4 9c.22 0 .43-.05.62-.14.2-.09.38-.22.54-.38l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 15z"/></svg>
-    </div>
+  <div class="links"><a href="#">Charts</a><a href="#">Marketplace</a><a href="#">Create</a><a href="#">Robux</a></div>
+  <div class="right">
+    <div class="avatar-small"><img src="https://files.catbox.moe/jf2zj6.jpeg" alt="avatar"></div>
+    <div class="robux"><img src="https://tr.rbxcdn.com/b68e521eaf370e87022a1a36494b3bd1/250/250/Decal/Png"><span>5000</span></div>
+    <div class="settings"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4"/></svg></div>
   </div>
 </div>
 
-<!-- content -->
-<div class="wrap">
-  <div class="profile-card">
-    <div class="profile-top">
-      <div class="big-avatar"><img src="https://files.catbox.moe/jf2zj6.jpeg" alt="avatar"><span class="online-dot-big"></span></div>
-      <div class="name-stack">
-        <div class="display-name">Rejauns</div>
-        <div class="handle">@Rejauns</div>
-        <div class="kpis"><div>0<small> Connections</small></div><div>0<small> Followers</small></div><div>0<small> Following</small></div></div>
-      </div>
+<!-- Profile -->
+<div class="profile">
+  <div class="avatar-big"><img src="https://files.catbox.moe/jf2zj6.jpeg" alt="avatar big"></div>
+  <div class="name">Rejauns</div>
+  <div class="handle">@Rejauns</div>
+  <div class="stats">
+    <div>0<small> Connections</small></div>
+    <div>0<small> Followers</small></div>
+    <div>0<small> Following</small></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active">About</div>
+    <div class="tab">Creations</div>
+  </div>
+
+  <div class="pane">
+    <h3>About</h3>
+    <div class="about-box">
+      <textarea id="about" maxlength="1000" placeholder="Tell the Roblox community about what you like to make, build, and explore..."></textarea>
+      <div class="hint">Keep yourself safe, do not share personal details online.</div>
+      <div class="actions"><div class="counter" id="counter">0/1000</div><button class="btn">Cancel</button><button class="btn primary">Save</button></div>
     </div>
-    <div class="tabs"><div class="tab active">About</div><div class="tab">Creations</div></div>
-    <div class="pane">
-      <h3>About</h3>
-      <div class="about-box">
-        <textarea id="about" maxlength="1000" placeholder="Tell the Roblox community about what you like to make, build, and explore..."></textarea>
-        <div class="hint">Keep yourself safe, do not share personal details online.</div>
-        <div class="actions"><div class="counter" id="counter">0/1000</div><button class="btn">Cancel</button><button class="btn primary">Save</button></div>
-      </div>
-      <a class="report" href="#">Report Abuse</a>
-    </div>
+    <a href="#" class="report">Report Abuse</a>
   </div>
 </div>
 
 <script>
-const btn=document.getElementById('robuxBtn'),menu=document.getElementById('robuxMenu');
-btn.addEventListener('click',e=>{e.stopPropagation();menu.classList.toggle('open')});
-window.addEventListener('click',()=>menu.classList.remove('open'));
 const ta=document.getElementById('about'),counter=document.getElementById('counter'),max=1000;
-function updateCount(){counter.textContent=ta.value.length+"/"+max}ta.addEventListener('input',updateCount);updateCount();
+function updateCount(){counter.textContent=ta.value.length+"/"+max}
+ta.addEventListener('input',updateCount);updateCount();
 </script>
+
 </body>
 </html>
